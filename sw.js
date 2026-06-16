@@ -1,6 +1,19 @@
-const CACHE_NAME = 'tictactoe-pro-v1';
+const CACHE_NAME = 'tictactoe-pro-v2';
+
 const ASSETS_TO_CACHE = [
   '/',
+
+  // Extensionless Cloudflare Pages routes
+  '/play',
+  '/local-multiplayer',
+  '/daily-challenge',
+  '/puzzle-library',
+  '/puzzle',
+  '/strategy-guide',
+  '/faq',
+  '/about',
+
+  // HTML routes (backward compatibility)
   '/index.html',
   '/play.html',
   '/local-multiplayer.html',
@@ -10,11 +23,17 @@ const ASSETS_TO_CACHE = [
   '/strategy-guide.html',
   '/faq.html',
   '/about.html',
+
+  // Core files
   '/offline.html',
   '/manifest.json',
+
+  // CSS
   '/assets/css/variables.css',
   '/assets/css/main.css',
   '/assets/css/components.css',
+
+  // JS
   '/assets/js/main.js',
   '/assets/js/game.js',
   '/assets/js/ai.js',
@@ -23,77 +42,108 @@ const ASSETS_TO_CACHE = [
   '/assets/js/puzzles-data.js',
   '/assets/js/puzzles.js',
   '/assets/js/daily.js',
+
+  // Images
   '/assets/images/logo.svg',
   '/assets/images/logo-192.png',
   '/assets/images/logo-512.png'
 ];
 
-// Install Event
+// Install
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Pre-caching offline assets...');
-      return cache.addAll(ASSETS_TO_CACHE);
-    }).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME)
+      .then(async (cache) => {
+        console.log('[SW] Pre-caching assets...');
+
+        // Prevent one bad file from breaking install
+        await Promise.allSettled(
+          ASSETS_TO_CACHE.map((asset) => cache.add(asset))
+        );
+      })
+      .then(() => self.skipWaiting())
   );
 });
 
-// Activate Event (Cleanup old caches)
+// Activate
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
+    caches.keys().then((cacheNames) =>
+      Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            console.log('[Service Worker] Clearing old cache:', cache);
+            console.log('[SW] Removing old cache:', cache);
             return caches.delete(cache);
           }
         })
-      );
-    }).then(() => self.clients.claim())
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
-// Fetch Event
+// Fetch
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests
   if (event.request.method !== 'GET') return;
 
-  // Avoid intercepting browser extension files, chrome-extension://, etc.
   const url = new URL(event.request.url);
+
   if (url.origin !== location.origin) return;
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
+
       if (cachedResponse) {
-        // Fetch fresh copy in the background (stale-while-revalidate)
+
+        // Update cache in background
         fetch(event.request)
           .then((networkResponse) => {
             if (networkResponse && networkResponse.status === 200) {
-              caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
+              caches.open(CACHE_NAME).then((cache) => {
+                cache.put(event.request, networkResponse.clone());
+              });
             }
           })
-          .catch(() => {/* Ignore network errors during background updates */});
+          .catch(() => {});
+
         return cachedResponse;
       }
 
       return fetch(event.request)
         .then((response) => {
-          // Cache new successful GET responses
-          if (!response || response.status !== 200 || response.type !== 'basic') {
+
+          if (
+            !response ||
+            response.status !== 200 ||
+            response.type !== 'basic'
+          ) {
             return response;
           }
+
           const responseToCache = response.clone();
+
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, responseToCache);
           });
+
           return response;
         })
         .catch(() => {
-          // If network fails and request is for an HTML page, show offline fallback
-          if (event.request.headers.get('accept').includes('text/html')) {
+
+          // Offline fallback for pages
+          if (
+            event.request.mode === 'navigate' ||
+            (
+              event.request.headers.get('accept') &&
+              event.request.headers.get('accept').includes('text/html')
+            )
+          ) {
             return caches.match('/offline.html');
           }
+
+          return new Response('', {
+            status: 503,
+            statusText: 'Offline'
+          });
         });
     })
   );
