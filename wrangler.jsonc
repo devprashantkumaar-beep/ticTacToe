@@ -1,9 +1,0 @@
-{
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "tictactoe",
-  "compatibility_date": "2026-06-16",
-  "assets": {
-    "directory": ".",
-    "html_handling": "auto-trailing-slash"
-  }
-}
