@@ -1,12 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Service Worker Registration
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then((reg) => console.log('[Service Worker] Registered successfully:', reg.scope))
-        .catch((err) => console.warn('[Service Worker] Registration failed:', err));
-    });
-  }
+
+  // 1. Service Worker Registration + Auto Update
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('/sw.js');
+
+      console.log('[Service Worker] Registered successfully:', registration.scope);
+
+      // Force update check
+      registration.update();
+
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+
+        if (!newWorker) return;
+
+        newWorker.addEventListener('statechange', () => {
+          if (
+            newWorker.state === 'installed' &&
+            navigator.serviceWorker.controller
+          ) {
+            console.log('[Service Worker] New version detected');
+
+            // Activate new SW immediately
+            newWorker.postMessage('SKIP_WAITING');
+          }
+        });
+      });
+
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('[Service Worker] Controller changed. Reloading...');
+        window.location.reload();
+      });
+
+    } catch (err) {
+      console.warn('[Service Worker] Registration failed:', err);
+    }
+  });
+}
 
   // 2. Active Navigation Link Highlighting
   const currentPath = window.location.pathname;

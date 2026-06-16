@@ -1,4 +1,10 @@
-const CACHE_NAME = 'tictactoe-pro-v2';
+const CACHE_NAME = 'tictactoe-pro-v3';
+
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
 
 const ASSETS_TO_CACHE = [
   '/',
