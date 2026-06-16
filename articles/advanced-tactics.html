@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Advanced Tic Tac Toe Tactics & Game Theory Mathematics</title>
+  <meta name="description" content="Explore the advanced mathematics of Tic Tac Toe! Learn about the 255,168 state game tree, Minimax recursion algorithms, and 3D multi-level grid variations.">
+  <link rel="canonical" href="https://tictactoe-pro.pages.dev/articles/advanced-tactics.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://tictactoe-pro.pages.dev/articles/advanced-tactics.html">
+  <meta property="og:title" content="Advanced Tic Tac Toe Tactics & Game Theory Mathematics">
+  <meta property="og:description" content="Delve into the algorithm mechanics of Minimax, explore game trees, and review 3D variations.">
+  <meta property="og:image" content="https://tictactoe-pro.pages.dev/assets/images/og-share.png">
+
+  <!-- Mobile and PWA -->
+  <meta name="theme-color" content="#161b22">
+  <link rel="apple-touch-icon" href="/assets/images/logo-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  
+  <style>
+    .article-container { max-width: 800px; margin: 20px auto 40px auto; }
+    .article-header { margin-bottom: 30px; }
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); margin-top: 10px; }
+    .article-body { line-height: 1.8; font-size: 1.05rem; display: flex; flex-direction: column; gap: 20px; }
+    .article-body h2 { font-size: 1.6rem; margin-top: 30px; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+    .article-body h3 { font-size: 1.25rem; margin-top: 20px; margin-bottom: 5px; }
+    .code-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      padding: 15px;
+      border-radius: var(--border-radius-md);
+      font-family: monospace;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+  </style>
+
+  <!-- Article JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Advanced Tic Tac Toe Tactics & Game Theory Mathematics",
+    "image": "https://tictactoe-pro.pages.dev/assets/images/og-share.png",
+    "author": {
+      "@type": "Person",
+      "name": "Game Scientist"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tic Tac Toe Pro",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tictactoe-pro.pages.dev/assets/images/logo-192.png"
+      }
+    },
+    "datePublished": "2026-06-16",
+    "description": "Examine the underlying decision-making algorithms and game tree sizes in advanced Tic Tac Toe theory."
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo-link" aria-label="Tic Tac Toe Pro Home">
+        <span class="logo-text">TicTacToePro</span>
+      </a>
+      
+      <button class="burger-menu" id="burger-menu" aria-label="Toggle navigation menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+
+      <nav id="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/play.html" class="nav-link">VS AI</a>
+        <a href="/local-multiplayer.html" class="nav-link">2 Player</a>
+        <a href="/daily-challenge.html" class="nav-link">Daily Challenge</a>
+        <a href="/puzzle-library.html" class="nav-link">Puzzles</a>
+        <a href="/strategy-guide.html" class="nav-link">Strategy</a>
+        <a href="/faq.html" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="controls-group">
+        <button id="sound-toggle" class="btn-icon" aria-label="Mute/Unmute sounds"></button>
+        <button id="install-app-btn" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">Install</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content container" id="main-content">
+    <div class="article-container">
+      <div style="margin-bottom: 20px;">
+        <a href="/strategy-guide.html">← Back to Strategy Hub</a>
+      </div>
+
+      <article>
+        <header class="article-header">
+          <h1>Advanced Tactics & Game Theory Mathematics</h1>
+          <div class="article-meta">
+            <span>By Analytics Lead</span> | <span>Published June 16, 2026</span> | <span>5 min read</span>
+          </div>
+        </header>
+
+        <!-- Ad Slot -->
+        <div class="ad-slot ad-leaderboard">
+          <span class="ad-slot-label">Ad Space 728x90</span>
+        </div>
+
+        <section class="article-body">
+          <p>For many, Tic Tac Toe is a simple pastime. For mathematicians and computer scientists, it represents a classic playground for game theory, combinatorial tree traversals, and recursive AI algorithms. Studying the game's mathematical structure reveals how modern chess and checkmating engines evaluate board states.</p>
+          
+          <p>In this article, we will examine the total state space of Tic Tac Toe, explain the mechanics of the Minimax algorithm, and explore advanced 3D grid variations.</p>
+
+          <h2>1. The Complexity of the Game Tree</h2>
+          <p>Although a 3x3 grid seems small, the number of possible game progressions is surprisingly large. If we map out every possible turn sequence, we get a <strong>game tree</strong>. Let's calculate the size of this tree:</p>
+          <ul>
+            <li>For the first move, there are 9 empty cells.</li>
+            <li>For the second, there are 8.</li>
+            <li>Continuing this pattern, there are a maximum of 9! (362,880) paths.</li>
+          </ul>
+          <p>However, many matches end before all nine cells are filled. If we exclude turns after a win has been achieved, there are exactly <strong>255,168 unique games</strong>. If we group games that are identical due to board rotations and reflections, there are only <strong>26,830 unique game states</strong>. This is a very manageable size for computers, allowing them to search the entire game tree in milliseconds.</p>
+
+          <h2>2. How the Minimax AI Works</h2>
+          <p>Our "Impossible AI" uses the classic <strong>Minimax algorithm</strong>. Minimax is a decision-making algorithm that helps a player choose the best move in a two-player, zero-sum game with perfect information.</p>
+          
+          <p>The algorithm works by looking ahead to all possible outcomes. It scores terminal (end-game) states as follows:</p>
+          <ul>
+            <li><strong>+10 points</strong> if the computer wins.</li>
+            <li><strong>-10 points</strong> if the human wins.</li>
+            <li><strong>0 points</strong> for a draw.</li>
+          </ul>
+          
+          <p>Using recursion, the algorithm bubbles these scores back up the game tree. The computer (the "maximizer") chooses the move that leads to the highest score, assuming the human (the "minimizer") will choose moves that lead to the lowest score. This guarantees perfect play from the AI.</p>
+
+          <div class="code-box">
+function minimax(board, depth, isMaximizing) {
+    if (checkWinner(board, AI)) return 10 - depth;
+    if (checkWinner(board, HUMAN)) return depth - 10;
+    if (isBoardFull(board)) return 0;
+
+    if (isMaximizing) {
+        let best = -Infinity;
+        for (let cell of getEmptyCells(board)) {
+            board[cell] = AI;
+            best = Math.max(best, minimax(board, depth + 1, false));
+            board[cell] = null;
+        }
+        return best;
+    } else {
+        let best = Infinity;
+        for (let cell of getEmptyCells(board)) {
+            board[cell] = HUMAN;
+            best = Math.min(best, minimax(board, depth + 1, true));
+            board[cell] = null;
+        }
+        return best;
+    }
+}</div>
+
+          <h2>3. Advanced Grid Variations</h2>
+          <p>Once you master the standard 3x3 board, you can explore larger variations that increase strategic complexity:</p>
+          <h3>3D Tic Tac Toe (Qubic)</h3>
+          <p>Played on a 4x4x4 cube (64 total cells), players try to align four marks in a row. Winning lines can run horizontally, vertically, or diagonally across four levels. Qubic has been mathematically solved: the first player is guaranteed to win under perfect play.</p>
+          
+          <h3>Gomoku (Five in a Row)</h3>
+          <p>Played on a much larger board (typically 15x15 or 19x19), players take turns placing black and white stones. The first player to align exactly five stones in a row wins. The larger board size increases the complexity, making it impossible for simple minimax algorithms to search the entire game tree. Gomoku AI engines typically rely on advanced heuristics or neural networks.</p>
+
+          <div style="margin-top: 30px; text-align: center;">
+            <a href="/play.html" class="btn btn-primary">Test Your Skills Against Minimax</a>
+          </div>
+        </section>
+      </article>
+
+      <!-- Related articles list -->
+      <section style="margin-top: 50px; border-top: 1px solid var(--border-color); padding-top: 30px;">
+        <h3 style="margin-bottom: 20px;">Read Next</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="card" style="padding: 15px;">
+            <h4><a href="/articles/how-to-win.html">How to Win (First Player)</a></h4>
+            <p class="text-muted" style="font-size: 0.85rem; margin-top: 5px;">Learn how playing first gives you a massive advantage.</p>
+          </div>
+          <div class="card" style="padding: 15px;">
+            <h4><a href="/articles/defensive-strategies.html">Defensive Play Guide</a></h4>
+            <p class="text-muted" style="font-size: 0.85rem; margin-top: 5px;">How to force a draw when playing second.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="text-align: center; font-size: 0.85rem;">&copy; 2026 Tic Tac Toe Pro. Designed for performance, accessibility, and SEO. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/assets/js/audio.js"></script>
+  <script src="/assets/js/stats.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Tic Tac Toe Pro - Play Free Online vs Impossible AI & Puzzles</title>
+  <meta name="description" content="Play free Tic Tac Toe online! Challenge our Impossible Minimax AI, solve 100+ strategic puzzles, track daily streaks, and master unbeatable strategies in our mobile-first PWA.">
+  <link rel="canonical" href="https://tictactoe-pro.pages.dev/">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tictactoe-pro.pages.dev/">
+  <meta property="og:title" content="Tic Tac Toe Pro - Play Free Online vs Impossible AI & Puzzles">
+  <meta property="og:description" content="Challenge our Impossible Minimax AI, solve 100+ strategic puzzles, track daily streaks, and master unbeatable strategies.">
+  <meta property="og:image" content="https://tictactoe-pro.pages.dev/assets/images/og-share.png">
+  <meta property="og:site_name" content="Tic Tac Toe Pro">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://tictactoe-pro.pages.dev/">
+  <meta name="twitter:title" content="Tic Tac Toe Pro - Play Free Online vs Impossible AI & Puzzles">
+  <meta name="twitter:description" content="Challenge our Impossible Minimax AI, solve 100+ strategic puzzles, track daily streaks, and master unbeatable strategies.">
+  <meta name="twitter:image" content="https://tictactoe-pro.pages.dev/assets/images/og-share.png">
+
+  <!-- PWA & Mobile Meta -->
+  <meta name="theme-color" content="#161b22">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/assets/images/logo-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  
+  <!-- Page Specific Style -->
+  <style>
+    .hero {
+      text-align: center;
+      padding: 60px 0 40px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--color-x), var(--color-o));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      color: var(--text-muted);
+    }
+    .cta-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 15px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin: 60px 0;
+    }
+    .feature-card {
+      text-align: left;
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+    .seo-blurb {
+      border-top: 1px solid var(--border-color);
+      padding-top: 60px;
+      margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1rem; }
+    }
+  </style>
+
+  <!-- Structured Schema JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Tic Tac Toe Pro",
+    "operatingSystem": "All",
+    "applicationCategory": "GameApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Play Tic Tac Toe online against advanced AI or solve tactical chess-like Tic Tac Toe puzzles.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1042"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo-link" aria-label="Tic Tac Toe Pro Home">
+        <span class="logo-text">TicTacToePro</span>
+      </a>
+      
+      <button class="burger-menu" id="burger-menu" aria-label="Toggle navigation menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+
+      <nav id="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/play.html" class="nav-link">VS AI</a>
+        <a href="/local-multiplayer.html" class="nav-link">2 Player</a>
+        <a href="/daily-challenge.html" class="nav-link">Daily Challenge</a>
+        <a href="/puzzle-library.html" class="nav-link">Puzzles</a>
+        <a href="/strategy-guide.html" class="nav-link">Strategy</a>
+        <a href="/faq.html" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="controls-group">
+        <button id="sound-toggle" class="btn-icon" aria-label="Mute/Unmute sounds"></button>
+        <button id="install-app-btn" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">Install</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content container" id="main-content">
+    
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>The Ultimate Tic Tac Toe Platform</h1>
+      <p>Challenge our Impossible Minimax AI, improve your skills with 100+ strategic puzzles, complete daily streak challenges, and go offline anytime.</p>
+      
+      <div class="cta-group">
+        <a href="/play.html" class="btn btn-primary">Play vs AI</a>
+        <a href="/local-multiplayer.html" class="btn btn-secondary">Local 2 Player</a>
+        <a href="/daily-challenge.html" class="btn btn-outline">Solve Daily Challenge</a>
+      </div>
+    </section>
+
+    <!-- Google AdSense Placeholder (Leaderboard) -->
+    <div class="ad-slot ad-leaderboard">
+      <span class="ad-slot-label">Banner Placement 728x90</span>
+    </div>
+
+    <!-- Feature Showcase -->
+    <section>
+      <h2 style="text-align: center; margin-bottom: 40px; font-size: 2rem;">Platform Features</h2>
+      <div class="features-grid">
+        <div class="card feature-card">
+          <span class="feature-icon">🤖</span>
+          <h3>Impossible AI Engine</h3>
+          <p class="text-muted" style="margin-top: 8px;">Compete against four intelligence levels. Choose Easy, Medium, Hard, or test your brain against the unbeatable Minimax algorithm.</p>
+        </div>
+        
+        <div class="card feature-card">
+          <span class="feature-icon">🧩</span>
+          <h3>100+ Strategy Puzzles</h3>
+          <p class="text-muted" style="margin-top: 8px;">Learn tactical setup plays. Solve offensive win-in-ones, block opponent forks, and explore advanced endgame layouts in our puzzle catalog.</p>
+        </div>
+        
+        <div class="card feature-card">
+          <span class="feature-icon">🔥</span>
+          <h3>Daily Challenges</h3>
+          <p class="text-muted" style="margin-top: 8px;">Log in daily to solve unique situation puzzles. Maintain streaks, secure milestones, and collect bronze, silver, and gold badges.</p>
+        </div>
+
+        <div class="card feature-card">
+          <span class="feature-icon">⚡</span>
+          <h3>Installable Web App</h3>
+          <p class="text-muted" style="margin-top: 8px;">Add the app to your homescreen. Built with robust PWA manifest structures for instant loading times and 100% offline gameplay.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO Strategic Guide Blurb -->
+    <section class="seo-blurb">
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: center;">
+        <div>
+          <h2 style="font-size: 1.8rem; margin-bottom: 15px;">Become Unbeatable: Master the Grid</h2>
+          <p class="text-muted" style="margin-bottom: 20px;">Did you know Tic Tac Toe is a mathematically solved game? Under perfect play from both opponents, the game always ends in a draw. To consistently outwit casual players, you need to master opening strategies, block L-shape forks, and understand corner capture tactics.</p>
+          <a href="/strategy-guide.html" class="btn btn-secondary" style="font-size: 0.9rem; padding: 10px 20px;">Read Strategy Guides</a>
+        </div>
+        <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px; background: rgba(0, 242, 254, 0.03);">
+          <h3 style="font-size: 1.1rem; color: var(--color-x);">Top Articles</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+            <li><a href="/articles/how-to-win.html">→ How to Win Tic Tac Toe</a></li>
+            <li><a href="/articles/best-opening-moves.html">→ Best Opening Moves Explained</a></li>
+            <li><a href="/articles/beginner-mistakes.html">→ 5 Common Beginner Mistakes</a></li>
+            <li><a href="/articles/defensive-strategies.html">→ How to Force a Draw (Second Player)</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo-link">
+            <span class="logo-text">TicTacToePro</span>
+          </a>
+          <p>The premium web platform for Tic Tac Toe games, interactive puzzles, daily challenges, and strategic education.</p>
+        </div>
+        <div>
+          <h4 class="footer-links-title">Game Modes</h4>
+          <ul class="footer-links-list">
+            <li><a href="/play.html" class="footer-link">Single Player (AI)</a></li>
+            <li><a href="/local-multiplayer.html" class="footer-link">Local Multiplayer</a></li>
+            <li><a href="/daily-challenge.html" class="footer-link">Daily Challenge</a></li>
+            <li><a href="/puzzle-library.html" class="footer-link">Puzzle Catalog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-links-title">Resources</h4>
+          <ul class="footer-links-list">
+            <li><a href="/strategy-guide.html" class="footer-link">Strategy Hub</a></li>
+            <li><a href="/faq.html" class="footer-link">FAQ & Rules</a></li>
+            <li><a href="/about.html" class="footer-link">About & Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <button id="mock-premium-btn" class="btn btn-primary" style="margin: 0 auto 15px auto; font-size: 0.85rem; padding: 8px 16px;">🚀 Go Premium ($1.99)</button>
+        <p>&copy; 2026 Tic Tac Toe Pro. Designed for performance, accessibility, and SEO. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/assets/js/audio.js"></script>
+  <script src="/assets/js/stats.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

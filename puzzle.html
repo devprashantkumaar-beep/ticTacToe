@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Solve Tic Tac Toe Strategy Level - Trainer Board</title>
+  <meta name="description" content="Solve interactive Tic Tac Toe tactical challenges. Master opening plays, lock down defensive coordinates, and secure unbeatable double-attacks.">
+  <link rel="canonical" href="https://tictactoe-pro.pages.dev/puzzle.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tictactoe-pro.pages.dev/puzzle.html">
+  <meta property="og:title" content="Solve Tic Tac Toe Strategy Level - Trainer Board">
+  <meta property="og:description" content="Master tactical situations, complete setups, and improve your Tic Tac Toe score.">
+  <meta property="og:image" content="https://tictactoe-pro.pages.dev/assets/images/og-share.png">
+
+  <!-- Mobile and PWA -->
+  <meta name="theme-color" content="#161b22">
+  <link rel="apple-touch-icon" href="/assets/images/logo-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  
+  <style>
+    .puzzle-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .solver-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .info-column {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-easy { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+    .badge-medium { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .badge-hard { background: rgba(244, 63, 94, 0.15); color: #f43f5e; }
+    
+    .cell.incorrect {
+      background: rgba(244, 63, 94, 0.15);
+      border-color: var(--color-danger);
+      box-shadow: 0 0 15px var(--color-danger-glow);
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    @media (max-width: 992px) {
+      .puzzle-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo-link" aria-label="Tic Tac Toe Pro Home">
+        <span class="logo-text">TicTacToePro</span>
+      </a>
+      
+      <button class="burger-menu" id="burger-menu" aria-label="Toggle navigation menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+
+      <nav id="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/play.html" class="nav-link">VS AI</a>
+        <a href="/local-multiplayer.html" class="nav-link">2 Player</a>
+        <a href="/daily-challenge.html" class="nav-link">Daily Challenge</a>
+        <a href="/puzzle-library.html" class="nav-link">Puzzles</a>
+        <a href="/strategy-guide.html" class="nav-link">Strategy</a>
+        <a href="/faq.html" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="controls-group">
+        <button id="sound-toggle" class="btn-icon" aria-label="Mute/Unmute sounds"></button>
+        <button id="install-app-btn" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">Install</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content container" id="main-content">
+    <div style="margin-bottom: 20px;">
+      <a href="/puzzle-library.html" style="font-weight: 500; display: flex; align-items: center; gap: 6px;">
+        ← Back to Puzzle Catalog
+      </a>
+    </div>
+
+    <div class="puzzle-layout">
+      
+      <!-- Left: Interactive Grid Solver -->
+      <section class="solver-column">
+        <span id="puzzle-level-num" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700;">Level #</span>
+        <h1 id="puzzle-title" style="font-size: 1.8rem; text-align: center; margin-bottom: 5px;">Loading Level...</h1>
+        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
+          <span id="puzzle-difficulty" class="badge">EASY</span>
+          <span id="puzzle-desc" style="font-size: 0.9rem; color: var(--text-muted);">Find the correct play.</span>
+        </div>
+
+        <div class="board-container">
+          <div class="board" id="puzzle-board" aria-label="Puzzle playboard">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Hint details -->
+        <div style="text-align: center; margin-top: 10px;">
+          <button class="btn btn-secondary" id="hint-toggle-btn" onclick="alert('Hint: Check where the opponent is threatening two-in-a-row, or identify if you can secure immediate win alignments!')" style="font-size: 0.85rem; padding: 8px 16px;">💡 Get Strategic Hint</button>
+        </div>
+
+        <div class="ad-slot ad-rectangle">
+          <span class="ad-slot-label">Ad Space 300x250</span>
+        </div>
+      </section>
+
+      <!-- Right: Learning / Recommendations column -->
+      <section class="info-column">
+        
+        <!-- Helpful guidelines -->
+        <div class="card" style="padding: 20px;">
+          <h2 style="font-size: 1.1rem; margin-bottom: 8px;">🤔 Puzzle Rules</h2>
+          <p class="text-muted" style="font-size: 0.85rem; line-height: 1.4;">Evaluate the board, identify whose turn it is, and place your mark on the <strong>optimal strategic cell</strong>. Selecting sub-optimal coordinates resets the board. Successfully solving registers progression.</p>
+        </div>
+
+        <!-- Related puzzles recommendations -->
+        <div class="card" style="padding: 20px;">
+          <h2 style="font-size: 1.1rem; margin-bottom: 12px;">🌟 Same Difficulty Puzzles</h2>
+          <div id="related-puzzles" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Generated in puzzles.js -->
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Level Complete Dialog -->
+  <div class="modal-overlay" id="result-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal-content">
+      <h2 class="modal-title" id="modal-title">Success</h2>
+      <div class="modal-desc" id="modal-desc">
+        Explanation layout.
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="rematch-btn" style="padding: 10px 20px;">Replay</button>
+        <a class="btn btn-primary" id="next-puzzle-btn" href="#" style="padding: 10px 20px;">Next Level →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="text-align: center; font-size: 0.85rem;">&copy; 2026 Tic Tac Toe Pro. Designed for performance, accessibility, and SEO. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/assets/js/audio.js"></script>
+  <script src="/assets/js/stats.js"></script>
+  <script src="/assets/js/puzzles-data.js"></script>
+  <script src="/assets/js/puzzles.js"></script>
+  <script src="/assets/js/main.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.PuzzleApp.init();
+    });
+  </script>
+</body>
+</html>

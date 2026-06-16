@@ -1,0 +1,48 @@
+{
+  "short_name": "TicTacToePro",
+  "name": "Tic Tac Toe Pro - Play Puzzles & Strategy Platform",
+  "description": "Play Tic Tac Toe vs Impossible AI, solve 100+ strategic puzzles, complete daily challenges, and learn unbeatable tactics in our SEO-optimized, mobile-first PWA.",
+  "icons": [
+    {
+      "src": "/assets/images/logo-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/images/logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0d1117",
+  "theme_color": "#161b22",
+  "display": "standalone",
+  "orientation": "portrait",
+  "categories": ["games", "education"],
+  "shortcuts": [
+    {
+      "name": "Play Vs AI",
+      "short_name": "Vs AI",
+      "description": "Play Tic Tac Toe against four levels of intelligent AI",
+      "url": "/play.html",
+      "icons": [{ "src": "/assets/images/logo-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Daily Challenge",
+      "short_name": "Daily",
+      "description": "Solve today's strategy puzzle and keep your streak alive",
+      "url": "/daily-challenge.html",
+      "icons": [{ "src": "/assets/images/logo-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Puzzle Library",
+      "short_name": "Puzzles",
+      "description": "Improve your game with 100+ interactive puzzles",
+      "url": "/puzzle-library.html",
+      "icons": [{ "src": "/assets/images/logo-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

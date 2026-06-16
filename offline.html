@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline Mode - Tic Tac Toe Pro</title>
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <style>
+    .offline-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      gap: 20px;
+    }
+    .wifi-off-icon {
+      font-size: 4rem;
+      color: var(--color-danger);
+      animation: pulse 1.5s infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); opacity: 0.7; }
+      to { transform: scale(1.1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo-link">
+        <span class="logo-text">TicTacToePro</span>
+      </div>
+      <span class="badge badge-danger" style="text-transform: uppercase; font-weight: 700;">Offline</span>
+    </div>
+  </header>
+
+  <main class="main-content container">
+    <div class="offline-container">
+      <div class="wifi-off-icon">📴</div>
+      <h1>You are Offline</h1>
+      <p class="text-muted">Internet connection is lost. Don't worry, you can still play local multiplayer or vs AI when you re-establish cached assets. Play a quick Pass & Play game below!</p>
+      
+      <div class="card" style="width: 100%; max-width: 400px; margin-top: 20px;">
+        <h2 id="status-text" style="text-align: center; margin-bottom: 20px; font-size: 1.25rem;">Player X's turn</h2>
+        <div class="board-container">
+          <div class="board" id="game-board">
+            <!-- Populated via script -->
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center; margin-top: 25px;">
+          <button class="btn btn-primary" id="reset-btn">Reset Match</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container" style="text-align: center;">
+      <p>&copy; 2026 Tic Tac Toe Pro. All rights reserved. Operating fully offline.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Self-contained offline board script
+    document.addEventListener('DOMContentLoaded', () => {
+      let board = Array(9).fill(null);
+      let turn = 'X';
+      let gameOver = false;
+      const statusText = document.getElementById('status-text');
+      const boardElem = document.getElementById('game-board');
+      const resetBtn = document.getElementById('reset-btn');
+
+      const WIN_PATTERNS = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ];
+
+      const checkWinner = () => {
+        for (const pattern of WIN_PATTERNS) {
+          const [a, b, c] = pattern;
+          if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+            return { winner: board[a], pattern };
+          }
+        }
+        if (board.every(cell => cell !== null)) return { winner: 'draw' };
+        return null;
+      };
+
+      const render = () => {
+        boardElem.innerHTML = '';
+        board.forEach((val, idx) => {
+          const cell = document.createElement('button');
+          cell.className = 'cell';
+          if (val) {
+            cell.classList.add(val.toLowerCase());
+            cell.textContent = val;
+            cell.setAttribute('disabled', 'true');
+          }
+          cell.addEventListener('click', () => {
+            if (val || gameOver) return;
+            board[idx] = turn;
+            const res = checkWinner();
+            if (res) {
+              gameOver = true;
+              if (res.winner === 'draw') {
+                statusText.textContent = "It's a draw!";
+              } else {
+                statusText.textContent = `Player ${res.winner} Wins!`;
+                // highlight win
+                const cells = boardElem.children;
+                res.pattern.forEach(pi => cells[pi].classList.add('winner'));
+              }
+            } else {
+              turn = turn === 'X' ? 'O' : 'X';
+              statusText.textContent = `Player ${turn}'s turn`;
+            }
+            render();
+          });
+          boardElem.appendChild(cell);
+        });
+      };
+
+      resetBtn.addEventListener('click', () => {
+        board = Array(9).fill(null);
+        turn = 'X';
+        gameOver = false;
+        statusText.textContent = "Player X's turn";
+        render();
+      });
+
+      render();
+    });
+  </script>
+</body>
+</html>

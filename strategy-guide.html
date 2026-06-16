@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tic Tac Toe Strategy Hub - Learn How to Win & Force Draws</title>
+  <meta name="description" content="Discover how to win Tic Tac Toe every time! Read our comprehensive strategy articles, learn opening moves, defensive blocks, fork setups, and advanced tactics.">
+  <link rel="canonical" href="https://tictactoe-pro.pages.dev/strategy-guide.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tictactoe-pro.pages.dev/strategy-guide.html">
+  <meta property="og:title" content="Tic Tac Toe Strategy Hub - Learn How to Win & Force Draws">
+  <meta property="og:description" content="Master opening positions, block opponent forks, and explore advanced game theory tree states.">
+  <meta property="og:image" content="https://tictactoe-pro.pages.dev/assets/images/og-share.png">
+
+  <!-- Mobile and PWA -->
+  <meta name="theme-color" content="#161b22">
+  <link rel="apple-touch-icon" href="/assets/images/logo-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  
+  <style>
+    .articles-list {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin: 20px 0 40px 0;
+    }
+    .article-teaser {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .article-meta {
+      display: flex;
+      gap: 15px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo-link" aria-label="Tic Tac Toe Pro Home">
+        <span class="logo-text">TicTacToePro</span>
+      </a>
+      
+      <button class="burger-menu" id="burger-menu" aria-label="Toggle navigation menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+
+      <nav id="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/play.html" class="nav-link">VS AI</a>
+        <a href="/local-multiplayer.html" class="nav-link">2 Player</a>
+        <a href="/daily-challenge.html" class="nav-link">Daily Challenge</a>
+        <a href="/puzzle-library.html" class="nav-link">Puzzles</a>
+        <a href="/strategy-guide.html" class="nav-link">Strategy</a>
+        <a href="/faq.html" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="controls-group">
+        <button id="sound-toggle" class="btn-icon" aria-label="Mute/Unmute sounds"></button>
+        <button id="install-app-btn" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">Install</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content container" id="main-content">
+    <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Tic Tac Toe Strategy Hub</h1>
+    <p class="text-muted" style="max-width: 600px;">Is Tic Tac Toe just a game of luck? Absolutely not. Explore our detailed strategic articles below to study how professional strategies mathematically prevent defeats.</p>
+
+    <!-- Articles List -->
+    <section class="articles-list">
+      
+      <!-- Article 1 -->
+      <article class="card article-teaser">
+        <div class="article-meta">
+          <span>📚 Strategy Guide</span>
+          <span>⏱ 4 min read</span>
+        </div>
+        <h2 style="font-size: 1.4rem;"><a href="/articles/how-to-win.html">How to Win Tic Tac Toe: The Unbeatable Guide</a></h2>
+        <p class="text-muted">Learn how playing first gives you a massive advantage. We explain the core mathematical structures of corner control, how center counters work, and the exact steps to create unavoidable double attacks (forks) that ensure a victory.</p>
+        <div>
+          <a href="/articles/how-to-win.html" class="btn btn-primary" style="font-size: 0.85rem; padding: 8px 16px;">Read Article</a>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="card article-teaser">
+        <div class="article-meta">
+          <span>🧠 Opening Moves</span>
+          <span>⏱ 3 min read</span>
+        </div>
+        <h2 style="font-size: 1.4rem;"><a href="/articles/best-opening-moves.html">Best Opening Moves: Corner vs. Center Play</a></h2>
+        <p class="text-muted">Should you start in the center or a corner? While the center feels intuitive, game theory proves that corner openings actually offer the highest number of traps for your opponent. We break down the mathematical outcomes of corner, center, and edge openings.</p>
+        <div>
+          <a href="/articles/best-opening-moves.html" class="btn btn-primary" style="font-size: 0.85rem; padding: 8px 16px;">Read Article</a>
+        </div>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="card article-teaser">
+        <div class="article-meta">
+          <span>⚠️ Common Mistakes</span>
+          <span>⏱ 3 min read</span>
+        </div>
+        <h2 style="font-size: 1.4rem;"><a href="/articles/beginner-mistakes.html">5 Common Beginner Mistakes to Avoid</a></h2>
+        <p class="text-muted">Why do you keep drawing or losing? Discover the five classic mistakes casual players make, including wasting opening turns on side edges, failing to look ahead one move, and falling for standard diagonal corner traps.</p>
+        <div>
+          <a href="/articles/beginner-mistakes.html" class="btn btn-primary" style="font-size: 0.85rem; padding: 8px 16px;">Read Article</a>
+        </div>
+      </article>
+
+      <!-- Article 4 -->
+      <article class="card article-teaser">
+        <div class="article-meta">
+          <span>🛡️ Defensive Play</span>
+          <span>⏱ 4 min read</span>
+        </div>
+        <h2 style="font-size: 1.4rem;"><a href="/articles/defensive-strategies.html">Defensive Strategies: How to Force a Draw playing Second</a></h2>
+        <p class="text-muted">Playing second can feel like an uphill battle. However, perfect defensive tactics guarantee you will never lose a match. Learn how to neutralize center openings, defuse opposite corner layouts, and enforce drawings.</p>
+        <div>
+          <a href="/articles/defensive-strategies.html" class="btn btn-primary" style="font-size: 0.85rem; padding: 8px 16px;">Read Article</a>
+        </div>
+      </article>
+
+      <!-- Article 5 -->
+      <article class="card article-teaser">
+        <div class="article-meta">
+          <span>⚡ Game Theory</span>
+          <span>⏱ 5 min read</span>
+        </div>
+        <h2 style="font-size: 1.4rem;"><a href="/articles/advanced-tactics.html">Advanced Tic Tac Toe Tactics & Game Theory</a></h2>
+        <p class="text-muted">Delve into the underlying mathematics of Tic Tac Toe. We explore the complete game tree (all 255,168 possible states), explain how the Minimax algorithm scores grids, and outline variants like 3D boards and 4x4 grids.</p>
+        <div>
+          <a href="/articles/advanced-tactics.html" class="btn btn-primary" style="font-size: 0.85rem; padding: 8px 16px;">Read Article</a>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Google AdSense Place -->
+    <div class="ad-slot ad-leaderboard">
+      <span class="ad-slot-label">Ad slot 728x90</span>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="text-align: center; font-size: 0.85rem;">&copy; 2026 Tic Tac Toe Pro. Designed for performance, accessibility, and SEO. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/assets/js/audio.js"></script>
+  <script src="/assets/js/stats.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

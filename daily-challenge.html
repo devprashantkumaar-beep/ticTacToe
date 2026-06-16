@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Daily Tic Tac Toe Challenge - Solves & Daily Streaks</title>
+  <meta name="description" content="Solve a new Tic Tac Toe strategy puzzle every single day. Track your completion streaks, unlock bronze and silver achievement badges, and beat your record!">
+  <link rel="canonical" href="https://tictactoe-pro.pages.dev/daily-challenge.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tictactoe-pro.pages.dev/daily-challenge.html">
+  <meta property="og:title" content="Daily Tic Tac Toe Challenge - Solves & Daily Streaks">
+  <meta property="og:description" content="Keep your mind sharp with one tactical puzzle per day. Can you hit a 7-day streak?">
+  <meta property="og:image" content="https://tictactoe-pro.pages.dev/assets/images/og-share.png">
+
+  <!-- Mobile and PWA -->
+  <meta name="theme-color" content="#161b22">
+  <link rel="apple-touch-icon" href="/assets/images/logo-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  
+  <style>
+    .challenge-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .challenge-play-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .streaks-row {
+      display: flex;
+      gap: 15px;
+      width: 100%;
+      max-width: 380px;
+    }
+    .badges-drawer {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 15px;
+      border-radius: var(--border-radius-md);
+      opacity: 0.5;
+      filter: grayscale(100%);
+      transition: all var(--transition-normal);
+    }
+    .badge-item.unlocked {
+      opacity: 1;
+      filter: grayscale(0%);
+      border-color: var(--color-success);
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.05);
+    }
+    .badge-icon {
+      font-size: 2.2rem;
+    }
+    .badge-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .badge-title {
+      font-weight: 700;
+      color: var(--text-bright);
+      font-size: 0.95rem;
+    }
+    .badge-status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    @media (max-width: 992px) {
+      .challenge-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo-link" aria-label="Tic Tac Toe Pro Home">
+        <span class="logo-text">TicTacToePro</span>
+      </a>
+      
+      <button class="burger-menu" id="burger-menu" aria-label="Toggle navigation menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+
+      <nav id="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/play.html" class="nav-link">VS AI</a>
+        <a href="/local-multiplayer.html" class="nav-link">2 Player</a>
+        <a href="/daily-challenge.html" class="nav-link">Daily Challenge</a>
+        <a href="/puzzle-library.html" class="nav-link">Puzzles</a>
+        <a href="/strategy-guide.html" class="nav-link">Strategy</a>
+        <a href="/faq.html" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="controls-group">
+        <button id="sound-toggle" class="btn-icon" aria-label="Mute/Unmute sounds"></button>
+        <button id="install-app-btn" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">Install</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content container" id="main-content">
+    <div class="challenge-layout">
+      
+      <!-- Left: Interactive Daily Puzzle Solver -->
+      <section class="challenge-play-area">
+        <h1 style="font-size: 2rem; text-align: center; margin-bottom: 5px;">Daily Strategy Challenge</h1>
+        <p class="text-muted" style="text-align: center; max-width: 450px; margin-bottom: 10px;">Solve today's puzzle to maintain your streak. Resetting or playing again does not affect your daily status.</p>
+
+        <!-- Streaks Counters -->
+        <div class="streaks-row">
+          <div class="stat-badge" style="flex: 1;">
+            <div class="stat-val" id="daily-streak">0</div>
+            <div class="stat-lbl">Current Streak</div>
+          </div>
+          <div class="stat-badge" style="flex: 1;">
+            <div class="stat-val" id="best-streak">0</div>
+            <div class="stat-lbl">Best Streak</div>
+          </div>
+        </div>
+
+        <!-- Container for unsolved game -->
+        <div id="daily-game-container" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+          <h2 id="daily-title" style="font-size: 1.35rem; font-weight: 700; color: var(--text-bright);">Loading Level...</h2>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <span id="daily-difficulty" class="badge">EASY</span>
+            <span class="text-muted" style="font-size: 0.85rem;">Find the optimal move.</span>
+          </div>
+
+          <div class="board-container">
+            <div class="board" id="daily-board" aria-label="Daily challenge board">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Completed message box (shown if already solved today) -->
+        <div class="card" id="daily-completed-message" style="display: none; text-align: center; width: 100%; max-width: 380px; padding: 40px 20px; border-color: var(--color-success);">
+          <span style="font-size: 4rem;">🎉</span>
+          <h2 style="color: var(--color-success); font-size: 1.6rem; margin: 15px 0 10px 0;">Solved for Today!</h2>
+          <p class="text-muted" style="font-size: 0.95rem; margin-bottom: 25px;">You have successfully completed today's daily strategy challenge. Come back tomorrow for a new strategic puzzle!</p>
+          <a href="/puzzle-library.html" class="btn btn-primary">Browse Puzzle Catalog</a>
+        </div>
+
+        <div class="ad-slot ad-rectangle">
+          <span class="ad-slot-label">Ad Block 300x250</span>
+        </div>
+      </section>
+
+      <!-- Right: Streak rewards drawer -->
+      <section class="badges-drawer">
+        <h2 style="font-size: 1.25rem; margin-bottom: 15px;">🔥 Streak Milestone Badges</h2>
+        
+        <div class="badge-item" id="badge-bronze">
+          <span class="badge-icon">🥉</span>
+          <div class="badge-text">
+            <span class="badge-title">Bronze Streak</span>
+            <span class="badge-status">3 Day Streak</span>
+          </div>
+        </div>
+
+        <div class="badge-item" id="badge-silver">
+          <span class="badge-icon">🥈</span>
+          <div class="badge-text">
+            <span class="badge-title">Silver Streak</span>
+            <span class="badge-status">7 Day Streak</span>
+          </div>
+        </div>
+        
+        <div class="card" style="padding: 15px; margin-top: 15px; background: rgba(255, 255, 255, 0.02);">
+          <h3 style="font-size: 0.95rem; color: var(--text-bright); margin-bottom: 8px;">Learn the Patterns</h3>
+          <p class="text-muted" style="font-size: 0.8rem; line-height: 1.3;">Solving puzzles requires identifying board forks. Check out our <a href="/strategy-guide.html" style="font-weight:600; text-decoration: underline;">Strategy Hub</a> to learn terms like corner binds, edge traps, and double attack vectors.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Puzzle Result Modal -->
+  <div class="modal-overlay" id="result-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal-content">
+      <h2 class="modal-title" id="modal-title">Solved</h2>
+      <div class="modal-desc" id="modal-desc">
+        Feedback.
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="rematch-btn">Show Streaks</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="text-align: center; font-size: 0.85rem;">&copy; 2026 Tic Tac Toe Pro. Designed for performance, accessibility, and SEO. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/assets/js/audio.js"></script>
+  <script src="/assets/js/stats.js"></script>
+  <script src="/assets/js/puzzles-data.js"></script>
+  <script src="/assets/js/daily.js"></script>
+  <script src="/assets/js/main.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.DailyChallenge.init();
+    });
+  </script>
+</body>
+</html>

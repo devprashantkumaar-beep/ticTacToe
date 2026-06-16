@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Frequently Asked Questions (FAQ) & Tic Tac Toe Rules</title>
+  <meta name="description" content="Read our FAQ to learn the official rules of Tic Tac Toe, understand strategic terms like forks, and discover why perfect play guarantees a draw game.">
+  <link rel="canonical" href="https://tictactoe-pro.pages.dev/faq.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tictactoe-pro.pages.dev/faq.html">
+  <meta property="og:title" content="Frequently Asked Questions (FAQ) & Tic Tac Toe Rules">
+  <meta property="og:description" content="Learn standard rules, common terminology, and mathematical game characteristics.">
+  <meta property="og:image" content="https://tictactoe-pro.pages.dev/assets/images/og-share.png">
+
+  <!-- Mobile and PWA -->
+  <meta name="theme-color" content="#161b22">
+  <link rel="apple-touch-icon" href="/assets/images/logo-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  
+  <style>
+    .faq-container {
+      max-width: 700px;
+      margin: 20px auto 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    /* Semantic accordion styling using native details/summary */
+    details {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      transition: border-color var(--transition-fast);
+    }
+    details:hover {
+      border-color: var(--border-glow);
+    }
+    details[open] {
+      border-color: var(--color-primary);
+    }
+    
+    summary {
+      padding: 18px 20px;
+      font-weight: 600;
+      color: var(--text-bright);
+      cursor: pointer;
+      list-style: none; /* Hide default triangle on Chrome */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      outline: none;
+    }
+    
+    summary::-webkit-details-marker {
+      display: none; /* Hide default triangle on Safari */
+    }
+    
+    summary::after {
+      content: "+";
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      transition: transform var(--transition-fast);
+    }
+    
+    details[open] summary::after {
+      content: "−";
+      color: var(--color-primary);
+    }
+    
+    .faq-answer {
+      padding: 0 20px 20px 20px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      padding-top: 15px;
+    }
+  </style>
+
+  <!-- FAQPage JSON-LD Schema for Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What are the official rules of Tic Tac Toe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tic Tac Toe is played on a 3x3 grid. Player 1 is X and Player 2 (or AI) is O. Players take turns placing their mark in an empty cell. The first player to align three marks horizontally, vertically, or diagonally wins. If all 9 cells are filled without an alignment, the game ends in a draw."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you win Tic Tac Toe if your opponent plays perfectly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Tic Tac Toe is mathematically solved. Under perfect play from both sides, the game will always result in a draw. To win, a player must capitalize on a sub-optimal move (mistake) made by their opponent."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a 'fork' in Tic Tac Toe strategy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A fork is a tactical board setup where you create two independent winning threats simultaneously. Because an opponent can only block one cell on their turn, creating a fork guarantees a win on your subsequent turn."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is the center cell considered crucial?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The center cell is involved in four distinct win paths (horizontal, vertical, and both diagonals). Corners are involved in three paths, while edge cells are only involved in two. Controlling the center gives you maximum tactical coverage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Minimax algorithm used by the Impossible AI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Minimax is a decision-making algorithm in game theory. It evaluates the entire game tree of possibilities from a given state, scoring paths (+10 for AI win, -10 for human win, 0 for draw). The AI chooses the move that maximizes its score, assuming the human plays to minimize it. This ensures the AI never makes a mistake."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo-link" aria-label="Tic Tac Toe Pro Home">
+        <span class="logo-text">TicTacToePro</span>
+      </a>
+      
+      <button class="burger-menu" id="burger-menu" aria-label="Toggle navigation menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+
+      <nav id="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/play.html" class="nav-link">VS AI</a>
+        <a href="/local-multiplayer.html" class="nav-link">2 Player</a>
+        <a href="/daily-challenge.html" class="nav-link">Daily Challenge</a>
+        <a href="/puzzle-library.html" class="nav-link">Puzzles</a>
+        <a href="/strategy-guide.html" class="nav-link">Strategy</a>
+        <a href="/faq.html" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="controls-group">
+        <button id="sound-toggle" class="btn-icon" aria-label="Mute/Unmute sounds"></button>
+        <button id="install-app-btn" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">Install</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content container" id="main-content">
+    <h1 style="font-size: 2.2rem; text-align: center; margin-bottom: 5px;">Frequently Asked Questions</h1>
+    <p class="text-muted" style="text-align: center; max-width: 500px; margin: 0 auto 30px auto;">Have questions about the official rules, how the Minimax computer calculates moves, or what a fork is? Browse our answers below.</p>
+
+    <!-- Collapsible FAQs -->
+    <section class="faq-container">
+      
+      <details open>
+        <summary>What are the official rules of Tic Tac Toe?</summary>
+        <div class="faq-answer">
+          <p>Tic Tac Toe is played on a square 3x3 grid. Player 1 is X and Player 2 (or the AI) is O. Players take turns placing their mark in any empty cell. The first player to align three of their marks horizontally, vertically, or diagonally wins the game. If all 9 cells are filled and neither player has achieved a three-in-a-row, the game is declared a draw.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Can you win Tic Tac Toe if your opponent plays perfectly?</summary>
+        <div class="faq-answer">
+          <p>No. Tic Tac Toe is a mathematically "solved" game. Under perfect play from both opponents, the game always ends in a draw. To win a match, you must capitalize on a sub-optimal move (an error) made by the other player. This is why learning strategic trap patterns is highly effective against human players.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What is a "fork" in Tic Tac Toe strategy?</summary>
+        <div class="faq-answer">
+          <p>A fork is a board state where you create two independent winning paths at the same time. Since an opponent can only block one cell per turn, establishing a fork guarantees a win on your next turn. Most puzzles in our library focus on teaching you how to set up or prevent these forks.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Why is the center cell considered so important?</summary>
+        <div class="faq-answer">
+          <p>The center cell is the most strategically valuable spot on the board because it belongs to four possible winning lines (the middle row, middle column, and both diagonals). Corner cells are part of three lines, while edge side cells are only part of two lines. Controlling the center gives you high tactical coverage.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What is the Minimax algorithm used by the Impossible AI?</summary>
+        <div class="faq-answer">
+          <p>Minimax is a classic decision-making recursive algorithm in game theory and artificial intelligence. It maps out the full game tree of possible remaining moves and scores each branch (+10 for AI victory, -10 for human victory, 0 for draws). The computer makes the move that maximizes its score, assuming you will play to minimize it. This prevents the AI from ever making mistakes, making it unbeatable.</p>
+        </div>
+      </details>
+
+    </section>
+
+    <!-- AdSense banner placement -->
+    <div class="ad-slot ad-leaderboard">
+      <span class="ad-slot-label">Banner Space 728x90</span>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="text-align: center; font-size: 0.85rem;">&copy; 2026 Tic Tac Toe Pro. Designed for performance, accessibility, and SEO. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/assets/js/audio.js"></script>
+  <script src="/assets/js/stats.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

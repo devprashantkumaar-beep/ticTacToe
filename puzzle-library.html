@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Interactive Tic Tac Toe Puzzle Library - 100+ Levels Catalog</title>
+  <meta name="description" content="Explore our library of 100+ interactive Tic Tac Toe strategy puzzles. Filter by difficulty (Easy, Medium, Hard) and type (Win, Block, Fork) to train your brain.">
+  <link rel="canonical" href="https://tictactoe-pro.pages.dev/puzzle-library.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tictactoe-pro.pages.dev/puzzle-library.html">
+  <meta property="og:title" content="Interactive Tic Tac Toe Puzzle Library - 100+ Levels Catalog">
+  <meta property="og:description" content="Solve 100+ tactical situations, trace your completion history, and master tactical setups.">
+  <meta property="og:image" content="https://tictactoe-pro.pages.dev/assets/images/og-share.png">
+
+  <!-- Mobile and PWA -->
+  <meta name="theme-color" content="#161b22">
+  <link rel="apple-touch-icon" href="/assets/images/logo-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  
+  <style>
+    .filter-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-lg);
+      padding: 20px;
+      margin: 20px 0 30px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      width: 100px;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all var(--transition-fast);
+    }
+    .filter-btn:hover {
+      background: var(--border-color);
+      color: var(--text-bright);
+    }
+    .filter-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+      box-shadow: 0 0 10px var(--color-primary-glow);
+    }
+    .puzzles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    
+    /* Card variants based on solved state */
+    .puzzle-item {
+      text-decoration: none;
+      transition: all var(--transition-normal);
+    }
+    .puzzle-item.solved {
+      border-color: var(--color-success);
+      background: rgba(16, 185, 129, 0.02);
+    }
+    .puzzle-item.solved:hover {
+      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.1);
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+    .badge-easy { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+    .badge-medium { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+    .badge-hard { background: rgba(244, 63, 94, 0.15); color: #f43f5e; }
+    .badge-attack { background: rgba(138, 43, 226, 0.15); color: #a855f7; }
+    .badge-defense { background: rgba(0, 242, 254, 0.15); color: #00d2fe; }
+    .badge-fork { background: rgba(254, 9, 121, 0.15); color: #fe09a0; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo-link" aria-label="Tic Tac Toe Pro Home">
+        <span class="logo-text">TicTacToePro</span>
+      </a>
+      
+      <button class="burger-menu" id="burger-menu" aria-label="Toggle navigation menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+
+      <nav id="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/play.html" class="nav-link">VS AI</a>
+        <a href="/local-multiplayer.html" class="nav-link">2 Player</a>
+        <a href="/daily-challenge.html" class="nav-link">Daily Challenge</a>
+        <a href="/puzzle-library.html" class="nav-link">Puzzles</a>
+        <a href="/strategy-guide.html" class="nav-link">Strategy</a>
+        <a href="/faq.html" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="controls-group">
+        <button id="sound-toggle" class="btn-icon" aria-label="Mute/Unmute sounds"></button>
+        <button id="install-app-btn" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">Install</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content container" id="main-content">
+    <h1 style="font-size: 2.2rem; margin-bottom: 5px;">Tic Tac Toe Strategy Puzzles</h1>
+    <p class="text-muted">Improve your tactical pattern matching. Filter through 120+ scenario cards below and tap one to solve.</p>
+
+    <!-- Filters Section -->
+    <div class="filter-section">
+      <div class="filter-group">
+        <span class="filter-label">Difficulty</span>
+        <button class="filter-btn active" data-filter-diff="all">All</button>
+        <button class="filter-btn" data-filter-diff="easy">Easy</button>
+        <button class="filter-btn" data-filter-diff="medium">Medium</button>
+        <button class="filter-btn" data-filter-diff="hard">Hard</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Category</span>
+        <button class="filter-btn active" data-filter-type="all">All</button>
+        <button class="filter-btn" data-filter-type="attack">Attack (Win)</button>
+        <button class="filter-btn" data-filter-type="defense">Defense (Block)</button>
+        <button class="filter-btn" data-filter-type="fork">Fork Traps</button>
+      </div>
+    </div>
+
+    <!-- Puzzles Grid Container -->
+    <section class="puzzles-grid" id="puzzles-list">
+      <!-- Generated dynamically in puzzles.js -->
+    </section>
+
+    <!-- AdSense Placements -->
+    <div class="ad-slot ad-leaderboard" style="margin-top: 40px;">
+      <span class="ad-slot-label">Banner Placement 728x90</span>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="text-align: center; font-size: 0.85rem;">&copy; 2026 Tic Tac Toe Pro. Designed for performance, accessibility, and SEO. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/assets/js/audio.js"></script>
+  <script src="/assets/js/stats.js"></script>
+  <script src="/assets/js/puzzles-data.js"></script>
+  <script src="/assets/js/puzzles.js"></script>
+  <script src="/assets/js/main.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Init puzzle library listings
+      window.PuzzleApp.init();
+    });
+  </script>
+</body>
+</html>

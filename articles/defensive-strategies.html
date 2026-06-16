@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Defensive Tic Tac Toe: How to Force a Draw playing Second</title>
+  <meta name="description" content="Learn how to force a draw in Tic Tac Toe playing second! We explore center responses, blocking corner openings, and defusing diagonal fork traps.">
+  <link rel="canonical" href="https://tictactoe-pro.pages.dev/articles/defensive-strategies.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://tictactoe-pro.pages.dev/articles/defensive-strategies.html">
+  <meta property="og:title" content="Defensive Tic Tac Toe: How to Force a Draw playing Second">
+  <meta property="og:description" content="Neutralize Player X's corner openings, handle center starts, and maintain a draw record.">
+  <meta property="og:image" content="https://tictactoe-pro.pages.dev/assets/images/og-share.png">
+
+  <!-- Mobile and PWA -->
+  <meta name="theme-color" content="#161b22">
+  <link rel="apple-touch-icon" href="/assets/images/logo-192.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/assets/css/variables.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  
+  <style>
+    .article-container { max-width: 800px; margin: 20px auto 40px auto; }
+    .article-header { margin-bottom: 30px; }
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); margin-top: 10px; }
+    .article-body { line-height: 1.8; font-size: 1.05rem; display: flex; flex-direction: column; gap: 20px; }
+    .article-body h2 { font-size: 1.6rem; margin-top: 30px; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+    .article-body h3 { font-size: 1.25rem; margin-top: 20px; margin-bottom: 5px; }
+  </style>
+
+  <!-- Article JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Defensive Tic Tac Toe: How to Force a Draw playing Second",
+    "image": "https://tictactoe-pro.pages.dev/assets/images/og-share.png",
+    "author": {
+      "@type": "Person",
+      "name": "Defense Specialist"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Tic Tac Toe Pro",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tictactoe-pro.pages.dev/assets/images/logo-192.png"
+      }
+    },
+    "datePublished": "2026-06-16",
+    "description": "Examine how Player O can mathematically ensure a draw in every game of Tic Tac Toe by using standard defensive structures."
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <a href="/" class="logo-link" aria-label="Tic Tac Toe Pro Home">
+        <span class="logo-text">TicTacToePro</span>
+      </a>
+      
+      <button class="burger-menu" id="burger-menu" aria-label="Toggle navigation menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+
+      <nav id="main-nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/play.html" class="nav-link">VS AI</a>
+        <a href="/local-multiplayer.html" class="nav-link">2 Player</a>
+        <a href="/daily-challenge.html" class="nav-link">Daily Challenge</a>
+        <a href="/puzzle-library.html" class="nav-link">Puzzles</a>
+        <a href="/strategy-guide.html" class="nav-link">Strategy</a>
+        <a href="/faq.html" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="controls-group">
+        <button id="sound-toggle" class="btn-icon" aria-label="Mute/Unmute sounds"></button>
+        <button id="install-app-btn" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">Install</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content container" id="main-content">
+    <div class="article-container">
+      <div style="margin-bottom: 20px;">
+        <a href="/strategy-guide.html">← Back to Strategy Hub</a>
+      </div>
+
+      <article>
+        <header class="article-header">
+          <h1>Defensive Strategies: Force a Draw Playing Second</h1>
+          <div class="article-meta">
+            <span>By Defense Coach</span> | <span>Published June 16, 2026</span> | <span>4 min read</span>
+          </div>
+        </header>
+
+        <!-- Ad Slot -->
+        <div class="ad-slot ad-leaderboard">
+          <span class="ad-slot-label">Ad Space 728x90</span>
+        </div>
+
+        <section class="article-body">
+          <p>Playing second in Tic Tac Toe (as <strong>Player O</strong>) means you are immediately on the defensive. Because the first player has the initiative, they can set up traps and force you to respond. However, because Tic Tac Toe is a solved game, **perfect defensive play guarantees you will never lose a match**.</p>
+          
+          <p>In this guide, we will outline the three critical rules Player O must follow to secure a draw in every single match.</p>
+
+          <h2>Rule 1: If X Opens in a Corner, You MUST Take the Center</h2>
+          <p>If Player X opens the match in any of the four corner cells (indices 0, 2, 6, 8), you have exactly one move to prevent a loss: <strong>you must place your O in the center cell (index 4)</strong>.</p>
+          <p>Responding to a corner opening by claiming another corner or an edge cell allows Player X to create an unavoidable fork on their next turn, leading to an immediate loss. Claiming the center breaks their diagonal line of attack and gives you maximum defensive coverage.</p>
+
+          <h2>Rule 2: Defusing the Diagonal Corner Trap (Opposite Corners)</h2>
+          <p>If Player X opens in a corner (e.g., index 0), you take the center (index 4), and Player X then plays in the opposite corner (index 8), they are setting a trap. They want you to play in one of the remaining corners (indices 2 or 6) so they can block you and create a fork.</p>
+          
+          <p>To block this trap, you must <strong>play in an edge cell (indices 1, 3, 5, 7)</strong> instead of a corner. Choosing an edge cell creates a two-in-a-row alignment of your own, forcing Player X to spend their turn blocking you. This disrupts their plans and guarantees a draw.</p>
+
+          <h2>Rule 3: If X Opens in the Center, Take a Corner</h2>
+          <p>If Player X opens the match by taking the center cell (index 4), your best response is to <strong>claim any corner cell (indices 0, 2, 6, 8)</strong>.</p>
+          <p>Responding to a center opening with an edge cell allows Player X to secure adjacent corners, setting up a fork. Taking a corner immediately restricts their options and leads to a straightforward draw.</p>
+
+          <h2>Summary: Player O Cheat Sheet</h2>
+          <ul>
+            <li>Opponent opens in a corner? → <strong>Take the Center.</strong></li>
+            <li>Opponent opens in the center? → <strong>Take a Corner.</strong></li>
+            <li>Opponent plays opposite corners? → <strong>Play an Edge.</strong></li>
+          </ul>
+
+          <div style="margin-top: 30px; text-align: center;">
+            <a href="/play.html" class="btn btn-primary">Practice Against Impossible AI</a>
+          </div>
+        </section>
+      </article>
+
+      <!-- Related articles list -->
+      <section style="margin-top: 50px; border-top: 1px solid var(--border-color); padding-top: 30px;">
+        <h3 style="margin-bottom: 20px;">Read Next</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="card" style="padding: 15px;">
+            <h4><a href="/articles/how-to-win.html">How to Win (First Player)</a></h4>
+            <p class="text-muted" style="font-size: 0.85rem; margin-top: 5px;">How to construct forks when you hold the opening turn.</p>
+          </div>
+          <div class="card" style="padding: 15px;">
+            <h4><a href="/articles/beginner-mistakes.html">5 Beginner Mistakes to Avoid</a></h4>
+            <p class="text-muted" style="font-size: 0.85rem; margin-top: 5px;">Stop falling for corner tricks by studying classic errors.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="text-align: center; font-size: 0.85rem;">&copy; 2026 Tic Tac Toe Pro. Designed for performance, accessibility, and SEO. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/assets/js/audio.js"></script>
+  <script src="/assets/js/stats.js"></script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

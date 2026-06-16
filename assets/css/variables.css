@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+
+:root {
+  /* Font Families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-title: 'Outfit', var(--font-sans);
+
+  /* Color Palette - Default Dark Theme (Premium Dark) */
+  --bg-main: #0d1117;
+  --bg-card: rgba(22, 27, 34, 0.7);
+  --bg-card-hover: rgba(33, 38, 45, 0.8);
+  --border-color: rgba(240, 246, 252, 0.1);
+  --border-glow: rgba(0, 242, 254, 0.15);
+  
+  --text-main: #c9d1d9;
+  --text-muted: #8b949e;
+  --text-bright: #ffffff;
+  
+  --color-primary: #8a2be2;      /* Neon Purple */
+  --color-primary-glow: rgba(138, 43, 226, 0.4);
+  
+  --color-x: #00f2fe;            /* Neon Cyan */
+  --color-x-glow: rgba(0, 242, 254, 0.5);
+  
+  --color-o: #fe0979;            /* Neon Magenta */
+  --color-o-glow: rgba(254, 9, 121, 0.5);
+  
+  --color-success: #10b981;      /* Emerald Green */
+  --color-success-glow: rgba(16, 185, 129, 0.4);
+  --color-danger: #f43f5e;       /* Rose Red */
+  --color-danger-glow: rgba(244, 63, 94, 0.4);
+  --color-warning: #f59e0b;      /* Amber Yellow */
+  
+  /* Layout Spacing */
+  --container-width: 1200px;
+  --header-height: 70px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 16px;
+  --border-radius-lg: 24px;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme Variables */
+:root[data-theme="light"] {
+  --bg-main: #f0f2f5;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-glow: rgba(138, 43, 226, 0.1);
+  
+  --text-main: #334155;
+  --text-muted: #64748b;
+  --text-bright: #0f172a;
+  
+  --color-primary: #7c3aed;
+  --color-primary-glow: rgba(124, 58, 237, 0.2);
+  
+  --color-x: #0284c7;            /* Blue */
+  --color-x-glow: rgba(2, 132, 199, 0.25);
+  
+  --color-o: #db2777;            /* Deep Pink */
+  --color-o-glow: rgba(219, 39, 119, 0.25);
+  
+  --color-success: #059669;
+  --color-success-glow: rgba(5, 150, 105, 0.2);
+  --color-danger: #e11d48;
+  --color-danger-glow: rgba(225, 29, 72, 0.2);
+}
+
+/* Premium Theme: Cyberpunk (Neon Gold and Cyan) */
+:root[data-theme="cyberpunk"] {
+  --bg-main: #0a0512;
+  --bg-card: rgba(20, 10, 35, 0.8);
+  --bg-card-hover: rgba(30, 15, 50, 0.9);
+  --border-color: #ffe6002c;
+  --border-glow: rgba(255, 230, 0, 0.2);
+  
+  --text-main: #00ffcc;
+  --text-muted: #9d00ff;
+  --text-bright: #ffe600;
+  
+  --color-primary: #ffe600;      /* Gold */
+  --color-primary-glow: rgba(255, 230, 0, 0.4);
+  
+  --color-x: #00ffcc;            /* Cyber Cyan */
+  --color-x-glow: rgba(0, 255, 204, 0.5);
+  
+  --color-o: #ff0055;            /* Cyber Neon Pink */
+  --color-o-glow: rgba(255, 0, 85, 0.5);
+}
+
+/* Premium Theme: Retro Game Boy (Monochrome Green) */
+:root[data-theme="retro"] {
+  --bg-main: #8bac0f;
+  --bg-card: #9bbc0f;
+  --bg-card-hover: #306230;
+  --border-color: #0f380f;
+  --border-glow: rgba(15, 56, 15, 0.3);
+  
+  --text-main: #0f380f;
+  --text-muted: #306230;
+  --text-bright: #0f380f;
+  
+  --color-primary: #306230;
+  --color-primary-glow: rgba(48, 98, 48, 0.4);
+  
+  --color-x: #0f380f;
+  --color-x-glow: rgba(15, 56, 15, 0.4);
+  
+  --color-o: #8bac0f;
+  --color-o-glow: rgba(139, 172, 15, 0.4);
+  
+  --color-success: #0f380f;
+  --color-danger: #306230;
+}
+
+/* Premium Theme: Forest (Organic Greens and Earthy Browns) */
+:root[data-theme="forest"] {
+  --bg-main: #142217;
+  --bg-card: rgba(25, 41, 29, 0.85);
+  --bg-card-hover: rgba(35, 57, 41, 0.9);
+  --border-color: rgba(163, 230, 53, 0.1);
+  --border-glow: rgba(163, 230, 53, 0.15);
+  
+  --text-main: #d9f99d;
+  --text-muted: #a3e635;
+  --text-bright: #f7fee7;
+  
+  --color-primary: #65a30d;
+  --color-primary-glow: rgba(101, 163, 13, 0.4);
+  
+  --color-x: #a3e635;            /* Lime Green */
+  --color-x-glow: rgba(163, 230, 53, 0.5);
+  
+  --color-o: #f59e0b;            /* Orange/Amber */
+  --color-o-glow: rgba(245, 158, 11, 0.5);
+}
