@@ -5,9 +5,9 @@
   justify-content: center;
   gap: 8px;
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
   font-weight: 600;
-  padding: 12px 24px;
+  padding: clamp(10px, 2.5vw, 12px) clamp(16px, 4vw, 24px);
   border-radius: var(--border-radius-md);
   border: none;
   cursor: pointer;
@@ -15,6 +15,7 @@
   outline: none;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   text-align: center;
+  white-space: nowrap;
 }
 
 .btn-primary {
@@ -72,7 +73,7 @@
 .board-container {
   position: relative;
   width: 100%;
-  max-width: 380px;
+  max-width: var(--board-max-width);
   margin: 0 auto;
 }
 
@@ -80,10 +81,10 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 12px;
+  gap: var(--board-gap);
   background: var(--border-color);
   border-radius: var(--border-radius-lg);
-  padding: 12px;
+  padding: var(--board-padding);
   aspect-ratio: 1 / 1;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   position: relative;
@@ -91,7 +92,7 @@
 
 .cell {
   background: var(--bg-main);
-  border-radius: var(--border-radius-md);
+  border-radius: var(--cell-radius);
   border: 1px solid var(--border-color);
   aspect-ratio: 1 / 1;
   display: flex;
@@ -99,12 +100,14 @@
   justify-content: center;
   cursor: pointer;
   outline: none;
-  font-size: 3rem;
+  font-size: var(--cell-font-size);
   font-family: var(--font-title);
   font-weight: 800;
   user-select: none;
   transition: all var(--transition-fast);
   position: relative;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .cell:focus-visible {
@@ -129,7 +132,7 @@
 @media (hover: hover) {
   .cell:not(.x):not(.o):hover::after {
     opacity: 0.25;
-    font-size: 2.8rem;
+    font-size: var(--cell-font-size);
   }
   body[data-current-turn="X"] .cell:not(.x):not(.o):hover::after {
     content: "X";
@@ -199,12 +202,14 @@
   border: 1px solid var(--border-glow);
   box-shadow: 0 10px 40px var(--color-primary-glow);
   border-radius: var(--border-radius-lg);
-  padding: 35px;
-  width: 90%;
+  padding: clamp(20px, 5vw, 35px);
+  width: 92%;
   max-width: 450px;
   text-align: center;
   transform: translateY(20px);
   transition: transform var(--transition-normal);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-overlay.open .modal-content {
@@ -212,26 +217,28 @@
 }
 
 .modal-title {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
+  font-size: clamp(1.3rem, 5vw, 1.8rem);
+  margin-bottom: 12px;
 }
 
 .modal-desc {
-  margin-bottom: 25px;
+  margin-bottom: clamp(16px, 4vw, 25px);
   color: var(--text-muted);
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
 }
 
 .modal-actions {
   display: flex;
-  gap: 15px;
+  gap: clamp(10px, 3vw, 15px);
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* Achievements drawer */
 .achievements-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(110px, 30vw, 140px), 1fr));
+  gap: clamp(10px, 2.5vw, 15px);
   margin-top: 20px;
 }
 
@@ -239,7 +246,7 @@
   background: rgba(0, 0, 0, 0.2);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-md);
-  padding: 15px 10px;
+  padding: clamp(10px, 2.5vw, 15px) clamp(6px, 2vw, 10px);
   text-align: center;
   opacity: 0.4;
   filter: grayscale(100%);
@@ -247,7 +254,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .achievement-card.unlocked {
@@ -259,17 +266,17 @@
 }
 
 .achievement-icon {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 5vw, 2rem);
 }
 
 .achievement-title {
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem);
   font-weight: 700;
   color: var(--text-bright);
 }
 
 .achievement-desc {
-  font-size: 0.75rem;
+  font-size: clamp(0.65rem, 2vw, 0.75rem);
   color: var(--text-muted);
 }
 
@@ -308,14 +315,14 @@
 
 /* Simulated AdSense banner types */
 .ad-leaderboard {
-  width: 728px;
-  height: 90px;
+  width: min(728px, 100%);
+  height: clamp(60px, 12vw, 90px);
   max-width: 100%;
 }
 
 .ad-rectangle {
-  width: 300px;
-  height: 250px;
+  width: min(300px, 100%);
+  height: clamp(200px, 60vw, 250px);
 }
 
 .ad-sticky-bottom {
@@ -324,8 +331,8 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 728px;
-  height: 50px;
+  max-width: 100%;
+  height: clamp(40px, 8vw, 50px);
   background: var(--bg-card);
   border-top: 1px solid var(--border-color);
   z-index: 90;
@@ -343,20 +350,20 @@ body.premium-active .ad-slot {
 .stat-badge {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-color);
-  padding: 10px 15px;
+  padding: clamp(8px, 2vw, 10px) clamp(10px, 3vw, 15px);
   border-radius: var(--border-radius-md);
   text-align: center;
 }
 
 .stat-val {
   font-family: var(--font-title);
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 4vw, 1.4rem);
   font-weight: 700;
   color: var(--text-bright);
 }
 
 .stat-lbl {
-  font-size: 0.75rem;
+  font-size: clamp(0.65rem, 2vw, 0.75rem);
   color: var(--text-muted);
   text-transform: uppercase;
 }

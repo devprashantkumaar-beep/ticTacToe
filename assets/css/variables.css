@@ -42,6 +42,28 @@
   --transition-fast: 0.15s ease;
   --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Responsive Breakpoints (for reference in media queries) */
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 992px;
+  --bp-xl: 1200px;
+
+  /* Fluid Typography Scale */
+  --text-xs: clamp(0.65rem, 1.5vw, 0.75rem);
+  --text-sm: clamp(0.75rem, 2vw, 0.875rem);
+  --text-base: clamp(0.875rem, 2.5vw, 1rem);
+  --text-lg: clamp(1rem, 3vw, 1.2rem);
+  --text-xl: clamp(1.2rem, 4vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 5vw, 2rem);
+  --text-3xl: clamp(1.8rem, 6vw, 3rem);
+
+  /* Board Responsive Sizing */
+  --board-max-width: 380px;
+  --board-gap: clamp(8px, 2.5vw, 12px);
+  --board-padding: clamp(8px, 2.5vw, 12px);
+  --cell-font-size: clamp(2rem, 10vw, 3rem);
+  --cell-radius: clamp(10px, 2.5vw, 16px);
 }
 
 /* Light Theme Variables */

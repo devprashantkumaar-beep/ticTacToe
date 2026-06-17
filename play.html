@@ -31,36 +31,37 @@
     .game-grid-layout {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 30px;
+      gap: clamp(20px, 4vw, 30px);
       margin-top: 20px;
     }
     .game-section {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: clamp(12px, 3vw, 20px);
     }
     .scoreboard {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: clamp(8px, 2vw, 15px);
       width: 100%;
-      max-width: 380px;
+      max-width: var(--board-max-width);
     }
     .game-settings {
       display: flex;
-      gap: 15px;
+      gap: clamp(8px, 2vw, 15px);
       width: 100%;
-      max-width: 380px;
+      max-width: var(--board-max-width);
     }
     .game-settings select {
       flex: 1;
-      padding: 10px;
+      min-width: 0;
+      padding: clamp(8px, 2vw, 10px);
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       color: var(--text-main);
       border-radius: var(--border-radius-md);
-      font-size: 0.95rem;
+      font-size: clamp(0.8rem, 2.5vw, 0.95rem);
       outline: none;
       cursor: pointer;
     }
@@ -70,12 +71,12 @@
     .sidebar-section {
       display: flex;
       flex-direction: column;
-      gap: 25px;
+      gap: clamp(16px, 4vw, 25px);
     }
     @media (max-width: 992px) {
       .game-grid-layout {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 30px;
       }
     }
   </style>
@@ -119,7 +120,7 @@
       
       <!-- Left side: The Board & Game Controls -->
       <section class="game-section">
-        <h1 style="text-align: center; font-size: 1.8rem; margin-bottom: 5px;">Single Player Mode</h1>
+        <h1 style="text-align: center; font-size: clamp(1.3rem, 5vw, 1.8rem); margin-bottom: 5px;">Single Player Mode</h1>
         
         <!-- Scoreboard -->
         <div class="scoreboard">
@@ -168,16 +169,16 @@
       <section class="sidebar-section">
         
         <!-- Theme Selector Box -->
-        <div class="card" style="padding: 20px;">
-          <h2 style="font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">🎨 Custom Styling Theme</h2>
+        <div class="card" style="padding: clamp(16px, 4vw, 20px);">
+          <h2 style="font-size: clamp(0.95rem, 3vw, 1.1rem); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">🎨 Custom Styling Theme</h2>
           <select id="theme-select" aria-label="Select Board Theme" style="
             width: 100%;
-            padding: 10px;
+            padding: clamp(8px, 2vw, 10px);
             background: var(--bg-main);
             border: 1px solid var(--border-color);
             color: var(--text-main);
             border-radius: var(--border-radius-md);
-            font-size: 0.95rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
             outline: none;
             cursor: pointer;
           ">
@@ -191,9 +192,9 @@
         </div>
 
         <!-- Achievements Panel -->
-        <div class="card" style="padding: 20px;">
-          <h2 style="font-size: 1.1rem; margin-bottom: 5px;">🎖️ Achievement Badges</h2>
-          <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 15px;">Unlock milestones by outwitting the artificial intelligence levels.</p>
+        <div class="card" style="padding: clamp(16px, 4vw, 20px);">
+          <h2 style="font-size: clamp(0.95rem, 3vw, 1.1rem); margin-bottom: 5px;">🎖️ Achievement Badges</h2>
+          <p class="text-muted" style="font-size: clamp(0.72rem, 2.5vw, 0.8rem); margin-bottom: 15px;">Unlock milestones by outwitting the artificial intelligence levels.</p>
           <div class="achievements-grid" id="achievements-list">
             <!-- Loaded via StatsManager in main.js -->
           </div>

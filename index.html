@@ -41,14 +41,14 @@
   <style>
     .hero {
       text-align: center;
-      padding: 60px 0 40px 0;
+      padding: clamp(32px, 8vw, 60px) 0 clamp(24px, 5vw, 40px) 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: clamp(12px, 3vw, 20px);
     }
     .hero h1 {
-      font-size: 3rem;
+      font-size: clamp(1.8rem, 7vw, 3rem);
       line-height: 1.1;
       margin-bottom: 10px;
       background: linear-gradient(135deg, var(--color-x), var(--color-o));
@@ -56,39 +56,40 @@
       -webkit-text-fill-color: transparent;
     }
     .hero p {
-      font-size: 1.2rem;
-      max-width: 600px;
+      font-size: clamp(0.95rem, 3vw, 1.2rem);
+      max-width: min(600px, 100%);
+      padding: 0 12px;
       color: var(--text-muted);
     }
     .cta-group {
       display: flex;
-      gap: 15px;
+      gap: clamp(10px, 3vw, 15px);
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 15px;
     }
+    .cta-group .btn {
+      flex: 0 1 auto;
+      min-width: 0;
+    }
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin: 60px 0;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: clamp(16px, 4vw, 30px);
+      margin: clamp(32px, 8vw, 60px) 0;
     }
     .feature-card {
       text-align: left;
     }
     .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
+      font-size: clamp(1.8rem, 6vw, 2.5rem);
+      margin-bottom: clamp(10px, 2vw, 15px);
       display: inline-block;
     }
     .seo-blurb {
       border-top: 1px solid var(--border-color);
-      padding-top: 60px;
-      margin-top: 40px;
-    }
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.2rem; }
-      .hero p { font-size: 1rem; }
+      padding-top: clamp(32px, 8vw, 60px);
+      margin-top: clamp(24px, 6vw, 40px);
     }
   </style>
 
@@ -169,7 +170,7 @@
 
     <!-- Feature Showcase -->
     <section>
-      <h2 style="text-align: center; margin-bottom: 40px; font-size: 2rem;">Platform Features</h2>
+      <h2 style="text-align: center; margin-bottom: clamp(24px, 5vw, 40px); font-size: clamp(1.4rem, 5vw, 2rem);">Platform Features</h2>
       <div class="features-grid">
         <div class="card feature-card">
           <span class="feature-icon">🤖</span>
@@ -199,15 +200,15 @@
 
     <!-- SEO Strategic Guide Blurb -->
     <section class="seo-blurb">
-      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: center;">
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: clamp(20px, 5vw, 40px); align-items: start;">
         <div>
-          <h2 style="font-size: 1.8rem; margin-bottom: 15px;">Become Unbeatable: Master the Grid</h2>
-          <p class="text-muted" style="margin-bottom: 20px;">Did you know Tic Tac Toe is a mathematically solved game? Under perfect play from both opponents, the game always ends in a draw. To consistently outwit casual players, you need to master opening strategies, block L-shape forks, and understand corner capture tactics.</p>
-          <a href="/strategy-guide.html" class="btn btn-secondary" style="font-size: 0.9rem; padding: 10px 20px;">Read Strategy Guides</a>
+          <h2 style="font-size: clamp(1.3rem, 5vw, 1.8rem); margin-bottom: 15px;">Become Unbeatable: Master the Grid</h2>
+          <p class="text-muted" style="margin-bottom: 20px; font-size: clamp(0.85rem, 2.5vw, 1rem);">Did you know Tic Tac Toe is a mathematically solved game? Under perfect play from both opponents, the game always ends in a draw. To consistently outwit casual players, you need to master opening strategies, block L-shape forks, and understand corner capture tactics.</p>
+          <a href="/strategy-guide.html" class="btn btn-secondary" style="font-size: clamp(0.8rem, 2vw, 0.9rem); padding: clamp(8px, 2vw, 10px) clamp(16px, 3vw, 20px);">Read Strategy Guides</a>
         </div>
-        <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px; background: rgba(0, 242, 254, 0.03);">
-          <h3 style="font-size: 1.1rem; color: var(--color-x);">Top Articles</h3>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+        <div class="card" style="padding: clamp(16px, 4vw, 20px); display: flex; flex-direction: column; gap: 12px; background: rgba(0, 242, 254, 0.03);">
+          <h3 style="font-size: clamp(0.95rem, 3vw, 1.1rem); color: var(--color-x);">Top Articles</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: clamp(8px, 2vw, 10px); font-size: clamp(0.8rem, 2.5vw, 0.9rem);">
             <li><a href="/articles/how-to-win.html">→ How to Win Tic Tac Toe</a></li>
             <li><a href="/articles/best-opening-moves.html">→ Best Opening Moves Explained</a></li>
             <li><a href="/articles/beginner-mistakes.html">→ 5 Common Beginner Mistakes</a></li>
