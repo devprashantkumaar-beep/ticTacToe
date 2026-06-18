@@ -72,14 +72,32 @@ document.addEventListener('DOMContentLoaded', () => {
       soundToggle.setAttribute('aria-label', muted ? 'Unmute Sound' : 'Mute Sound');
     };
 
-    updateSoundIcon(window.AudioManager.getMuteState());
+    const syncIconFromStorage = () => {
+      // Source-of-truth from localStorage so it never gets out of sync.
+      const muted = localStorage.getItem('tictactoe_muted') === 'true';
+      updateSoundIcon(muted);
+    };
+
+    // Initial render
+    syncIconFromStorage();
 
     soundToggle.addEventListener('click', () => {
+      if (!window.AudioManager) return;
       const muted = window.AudioManager.toggleMute();
       updateSoundIcon(muted);
       if (!muted) {
         window.AudioManager.playClick();
       }
+    });
+
+    // Re-sync if mute state changes from another tab/window
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'tictactoe_muted') syncIconFromStorage();
+    });
+
+    // Also re-sync when returning to the tab (helps with SW/caching edge cases)
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) syncIconFromStorage();
     });
   }
 
