@@ -1,44 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // 1. Service Worker Registration + Auto Update
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', async () => {
-    try {
-      const registration = await navigator.serviceWorker.register('/sw.js');
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', async () => {
+      try {
+        const registration = await navigator.serviceWorker.register('/sw.js');
 
-      console.log('[Service Worker] Registered successfully:', registration.scope);
+        console.log('[Service Worker] Registered successfully:', registration.scope);
 
-      // Force update check
-      registration.update();
+        // Force update check
+        registration.update();
 
-      registration.addEventListener('updatefound', () => {
-        const newWorker = registration.installing;
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
 
-        if (!newWorker) return;
+          if (!newWorker) return;
 
-        newWorker.addEventListener('statechange', () => {
-          if (
-            newWorker.state === 'installed' &&
-            navigator.serviceWorker.controller
-          ) {
-            console.log('[Service Worker] New version detected');
+          newWorker.addEventListener('statechange', () => {
+            if (
+              newWorker.state === 'installed' &&
+              navigator.serviceWorker.controller
+            ) {
+              console.log('[Service Worker] New version detected');
 
-            // Activate new SW immediately
-            newWorker.postMessage('SKIP_WAITING');
-          }
+              // Activate new SW immediately
+              newWorker.postMessage('SKIP_WAITING');
+            }
+          });
         });
-      });
 
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        console.log('[Service Worker] Controller changed. Reloading...');
-        window.location.reload();
-      });
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          console.log('[Service Worker] Controller changed. Reloading...');
+          window.location.reload();
+        });
 
-    } catch (err) {
-      console.warn('[Service Worker] Registration failed:', err);
-    }
-  });
-}
+      } catch (err) {
+        console.warn('[Service Worker] Registration failed:', err);
+      }
+    });
+  }
 
   // 2. Active Navigation Link Highlighting
   const currentPath = window.location.pathname;
@@ -64,20 +64,40 @@ if ('serviceWorker' in navigator) {
   const soundToggle = document.getElementById('sound-toggle');
   if (soundToggle) {
     const updateSoundIcon = (muted) => {
-      soundToggle.innerHTML = muted 
-        ? `<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>` 
-        : `<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z"/></svg>`;
+      // Force a visible icon change. Also set a data attribute so CSS can style if needed.
+      soundToggle.dataset.muted = muted ? 'true' : 'false';
+      soundToggle.innerHTML = muted
+        ? `<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`
+        : `<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z"/></svg>`;
       soundToggle.setAttribute('aria-label', muted ? 'Unmute Sound' : 'Mute Sound');
     };
 
-    updateSoundIcon(window.AudioManager.getMuteState());
+    const syncIconFromStorage = () => {
+      // Source-of-truth from localStorage so it never gets out of sync.
+      const muted = localStorage.getItem('tictactoe_muted') === 'true';
+      updateSoundIcon(muted);
+    };
+
+    // Initial render
+    syncIconFromStorage();
 
     soundToggle.addEventListener('click', () => {
+      if (!window.AudioManager) return;
       const muted = window.AudioManager.toggleMute();
       updateSoundIcon(muted);
       if (!muted) {
         window.AudioManager.playClick();
       }
+    });
+
+    // Re-sync if mute state changes from another tab/window
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'tictactoe_muted') syncIconFromStorage();
+    });
+
+    // Also re-sync when returning to the tab (helps with SW/caching edge cases)
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) syncIconFromStorage();
     });
   }
 
@@ -126,11 +146,11 @@ if ('serviceWorker' in navigator) {
     const isPrem = window.StatsManager.isPremium();
     const mockPremBtn = document.getElementById('mock-premium-btn');
     if (mockPremBtn) {
-      mockPremBtn.innerHTML = isPrem 
-        ? 'Premium Active ✓' 
+      mockPremBtn.innerHTML = isPrem
+        ? 'Premium Active ✓'
         : '🚀 Go Premium ($1.99)';
-      mockPremBtn.className = isPrem 
-        ? 'btn btn-secondary' 
+      mockPremBtn.className = isPrem
+        ? 'btn btn-secondary'
         : 'btn btn-primary';
     }
 
